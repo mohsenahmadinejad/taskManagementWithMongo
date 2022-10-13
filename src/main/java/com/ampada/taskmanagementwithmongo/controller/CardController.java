@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -29,7 +30,7 @@ public class CardController {
         return ResponseEntity.ok(cardService.updateCard(boardId,cardDto));
     }
 
-    @GetMapping
+    @GetMapping("boardId/{boardId}")
     public ResponseEntity<List<Card>> getCardsByBoardId(@PathVariable String boardId) {
         return ResponseEntity.ok(cardService.getCardsByBoardId(boardId));
     }
@@ -57,5 +58,22 @@ public class CardController {
                                                  @PathVariable String cardId) {
         return ResponseEntity.ok(cardService.assignUserToCard(userId, cardId));
     }
+
+    @GetMapping("card-title/{cardTitle}")
+    public ResponseEntity<List<Card>> getCardsByCardTitle(@PathVariable String cardTitle) {
+        return ResponseEntity.ok(cardService.getCardsByCardTitle(cardTitle));
+    }
+
+    @PostMapping("get-cards-by-userids")
+    public ResponseEntity<List<Card>> getCardsByUserIds(@RequestBody List<String> userIds) {
+        return ResponseEntity.ok(cardService.getCardsByUserIds(userIds));
+    }
+
+    @PostMapping("get-cards-by-modifyon")
+    public ResponseEntity<List<Card>> getCardsByModifyOn(@RequestBody Date modifyOn) {
+        return ResponseEntity.ok(cardService.getCardsByModifyOn(modifyOn));
+    }
+
+
 
 }

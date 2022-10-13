@@ -6,6 +6,7 @@ import com.ampada.taskmanagementwithmongo.model.Board;
 import com.ampada.taskmanagementwithmongo.model.Card;
 import com.ampada.taskmanagementwithmongo.repository.BoardRepository;
 import com.ampada.taskmanagementwithmongo.repository.CardRepository;
+import com.ampada.taskmanagementwithmongo.utils.DateUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MatchingStrategy;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -83,4 +85,20 @@ public class CardServiceImpl implements CardService {
         return card;
     }
 
+    @Override
+    public List<Card> getCardsByCardTitle(String cardTitle) {
+        return cardRepository.findAllByCardTitle(cardTitle);
+    }
+
+    @Override
+    public List<Card> getCardsByUserIds(List<String> userIds) {
+        return cardRepository.findAllByUserIdListIn(userIds);
+    }
+
+    @Override
+    public List<Card> getCardsByModifyOn(Date modifyOn) {
+        Date startOfDate= DateUtils.getStartOfDay(modifyOn);
+        Date endOfDate= DateUtils.getEndOfDay(modifyOn);
+        return cardRepository.findAllByModifiedOnBetween(startOfDate,endOfDate);
+    }
 }
