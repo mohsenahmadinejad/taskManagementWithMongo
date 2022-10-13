@@ -1,6 +1,7 @@
 package com.ampada.taskmanagementwithmongo.controller;
 
 
+import com.ampada.taskmanagementwithmongo.dto.BoardDto;
 import com.ampada.taskmanagementwithmongo.model.Board;
 import com.ampada.taskmanagementwithmongo.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,13 @@ public class BoardController {
     private BoardService boardService;
 
     @PostMapping
-    public ResponseEntity<String> addBoard(@RequestBody Board board) {
-       return ResponseEntity.status(HttpStatus.CREATED).body(boardService.addBoard(board));
+    public ResponseEntity<String> addBoard(@RequestBody BoardDto boardDto) {
+       return ResponseEntity.status(HttpStatus.CREATED).body(boardService.addBoard(boardDto));
     }
 
     @PutMapping
-    public ResponseEntity<Board> updateBoard(@RequestBody Board board) {
-       return ResponseEntity.ok(boardService.updateBoard(board));
+    public ResponseEntity<Board> updateBoard(@RequestBody BoardDto boardDto) {
+       return ResponseEntity.ok(boardService.updateBoard(boardDto));
     }
 
     @GetMapping
@@ -43,6 +44,10 @@ public class BoardController {
         boardService.deleteBoard(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+
+
+
 
 
 

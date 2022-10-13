@@ -1,18 +1,19 @@
 package com.ampada.taskmanagementwithmongo.service;
 
-import com.ampada.taskmanagementwithmongo.model.Board;
+import com.ampada.taskmanagementwithmongo.dto.CardDto;
+import com.ampada.taskmanagementwithmongo.model.Card;
 
 import java.util.List;
 
 public interface CardService {
 
-    String addBoard(Board board);
+    String addCard(String boardId, CardDto cardDto);
 
-    Board updateBoard(Board board);
+    Card updateCard(String boardId,CardDto cardDto);
 
-    List<Board> getAllBoards();
+    List<Card> getCardsByBoardId(String boardId);
 
-    Board getBoardById(String id);
+    Card getCardById(String boardId,String id);
 
-    void deleteBoard(String id);
+    void deleteCard(String boardId,String id);
 }

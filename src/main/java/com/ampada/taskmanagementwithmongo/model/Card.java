@@ -1,15 +1,15 @@
 package com.ampada.taskmanagementwithmongo.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Builder;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
 
 @Data
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Card  extends  Auditable{
@@ -18,6 +18,6 @@ public class Card  extends  Auditable{
     private String id;
     private String cardTitle;
     private String boardId;
-    private List<User> userList;
+    private List<String> userIdList;
 
 }

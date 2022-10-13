@@ -1,8 +1,10 @@
 package com.ampada.taskmanagementwithmongo.service;
 
 
+import com.ampada.taskmanagementwithmongo.dto.BoardDto;
 import com.ampada.taskmanagementwithmongo.model.Board;
 import com.ampada.taskmanagementwithmongo.repository.BoardRepository;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +18,28 @@ public class BoardServiceImpl implements BoardService {
     private final Logger LOGGER = LoggerFactory.getLogger(BoardServiceImpl.class);
 
     @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
     private BoardRepository boardRepository;
 
     @Override
-    public String addBoard(Board board) {
+    public String addBoard(BoardDto boardDto) {
+        Board board=new Board();
+        board=modelMapper.map(boardDto,Board.class);
         LOGGER.info("Board added : "+board.toString());
         return boardRepository.save(board).getId();
     }
 
     @Override
-    public Board updateBoard(Board board) {
-        Board saveBoard =boardRepository.findById(board.getId())
+    public Board updateBoard(BoardDto boardDto) {
+        Board savedBoard =boardRepository.findById(boardDto.getId())
                 .orElseThrow(()->new RuntimeException(
-                        String.format("Can not find Board by id %s",board.getId())
+                        String.format("Can not find Board by id %s",boardDto.getId())
                 ));
-        saveBoard.setBoardName(board.getBoardName());
-        LOGGER.info("Board updated to  : "+saveBoard.toString());
-        return boardRepository.save(saveBoard);
+        savedBoard.setBoardName(boardDto.getBoardName());
+        LOGGER.info("Board updated to  : "+savedBoard.toString());
+        return boardRepository.save(savedBoard);
     }
 
     @Override

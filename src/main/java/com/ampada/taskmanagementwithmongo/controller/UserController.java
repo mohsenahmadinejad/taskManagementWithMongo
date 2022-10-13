@@ -1,14 +1,11 @@
 package com.ampada.taskmanagementwithmongo.controller;
 
-import com.ampada.taskmanagementwithmongo.model.User;
+import com.ampada.taskmanagementwithmongo.dto.UserDto;
 import com.ampada.taskmanagementwithmongo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-
-import java.util.List;
 
 
 @RestController
@@ -22,8 +19,8 @@ public class UserController {
 
 
     @PostMapping("/signUp")
-    public ResponseEntity<String> addUser(@RequestBody User user) {
-       return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(user));
+    public ResponseEntity<String> addUser(@RequestBody UserDto userDto) {
+       return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(userDto));
     }
 
 

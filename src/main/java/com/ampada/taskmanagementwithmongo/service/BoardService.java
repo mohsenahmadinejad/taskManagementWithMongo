@@ -1,15 +1,16 @@
 package com.ampada.taskmanagementwithmongo.service;
 
 
+import com.ampada.taskmanagementwithmongo.dto.BoardDto;
 import com.ampada.taskmanagementwithmongo.model.Board;
 
 import java.util.List;
 
 public interface BoardService {
 
-    String addBoard(Board board);
+    String addBoard(BoardDto boardDto);
 
-    Board updateBoard(Board board);
+    Board updateBoard(BoardDto boardDto);
 
     List<Board> getAllBoards();
 

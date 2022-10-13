@@ -1,0 +1,49 @@
+package com.ampada.taskmanagementwithmongo.controller;
+
+
+import com.ampada.taskmanagementwithmongo.dto.CardDto;
+import com.ampada.taskmanagementwithmongo.model.Card;
+import com.ampada.taskmanagementwithmongo.service.CardService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+
+@RestController
+@RequestMapping("/api/board/{boardId}/cards")
+public class CardController {
+
+    @Autowired
+    private CardService cardService;
+
+    @PostMapping
+    public ResponseEntity<String> addCard(@PathVariable String boardId, @RequestBody CardDto cardDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(cardService.addCard(boardId,cardDto));
+    }
+
+    @PutMapping
+    public ResponseEntity<Card> updateCard(@PathVariable String boardId, @RequestBody CardDto cardDto) {
+        return ResponseEntity.ok(cardService.updateCard(boardId,cardDto));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Card>> getCardsByBoardId(@PathVariable String boardId) {
+        return ResponseEntity.ok(cardService.getCardsByBoardId(boardId));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Card> getCardById(@PathVariable String boardId, @PathVariable String id) {
+        return ResponseEntity.ok(cardService.getCardById(boardId,id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteCard(@PathVariable String boardId, @PathVariable String id) {
+        cardService.deleteCard(boardId,id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+
+}
