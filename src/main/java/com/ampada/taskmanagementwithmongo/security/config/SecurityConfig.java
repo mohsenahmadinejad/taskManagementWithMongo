@@ -34,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder(11);
+//        return NoOpPasswordEncoder.getInstance();
+
     }
 
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
@@ -47,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests().
                 antMatchers("/signUp").permitAll().
                 antMatchers("/signIn").permitAll().
-                antMatchers("/**").permitAll().
+//                antMatchers("/**").permitAll().
                 anyRequest().authenticated()
                 .and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
