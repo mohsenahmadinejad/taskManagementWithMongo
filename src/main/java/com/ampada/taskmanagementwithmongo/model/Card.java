@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @ToString
@@ -18,6 +19,6 @@ public class Card  extends  Auditable{
     private String id;
     private String cardTitle;
     private String boardId;
-    private List<String> userIdList;
+    private Set<String> userIdList;
 
 }

@@ -39,11 +39,23 @@ public class CardController {
         return ResponseEntity.ok(cardService.getCardById(boardId,id));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id},{}")
     public ResponseEntity deleteCard(@PathVariable String boardId, @PathVariable String id) {
         cardService.deleteCard(boardId,id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @PutMapping("assing-user/{userId},{cardId}")
+    public ResponseEntity<Card> assignCardToUser(@PathVariable String boardId,
+                                                 @PathVariable String userId,
+                                                 @PathVariable String cardId) {
+        return ResponseEntity.ok(cardService.assignUserToCard(userId, cardId));
+    }
+    @PutMapping("unassing-user/{userId},{cardId}")
+    public ResponseEntity<Card> unassignCardToUser(@PathVariable String boardId,
+                                                 @PathVariable String userId,
+                                                 @PathVariable String cardId) {
+        return ResponseEntity.ok(cardService.assignUserToCard(userId, cardId));
+    }
 
 }

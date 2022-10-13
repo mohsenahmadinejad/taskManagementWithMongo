@@ -16,4 +16,10 @@ public interface CardService {
     Card getCardById(String boardId,String id);
 
     void deleteCard(String boardId,String id);
+
+    Card assignUserToCard(String userId,String cardId);
+
+    Card unassignUserToCard(String userId,String cardId);
+
+
 }

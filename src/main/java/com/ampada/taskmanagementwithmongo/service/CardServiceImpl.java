@@ -68,4 +68,19 @@ public class CardServiceImpl implements CardService {
         LOGGER.info("CardId {} deleted : ",id);
         cardRepository.deleteById(id);
     }
+
+    @Override
+    public Card assignUserToCard(String userId,String cardId) {
+        Card card = cardRepository.findById(cardId).get();
+        card.getUserIdList().add(userId);
+        return card;
+    }
+
+    @Override
+    public Card unassignUserToCard(String userId,String cardId) {
+        Card card = cardRepository.findById(cardId).get();
+        card.getUserIdList().remove(userId);
+        return card;
+    }
+
 }
