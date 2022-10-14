@@ -10,6 +10,7 @@ import java.util.List;
 
 @Data
 @ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)

@@ -28,4 +28,6 @@ public interface CardService {
 
     List<Card> getCardsByModifyOn(Date modifyOn);
 
+    List<Card> getCardsByBoardIdSortedByModifyOn(String boardId);
+
 }

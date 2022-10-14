@@ -30,7 +30,7 @@ public class CardController {
         return ResponseEntity.ok(cardService.updateCard(boardId,cardDto));
     }
 
-    @GetMapping("boardId/{boardId}")
+    @GetMapping()
     public ResponseEntity<List<Card>> getCardsByBoardId(@PathVariable String boardId) {
         return ResponseEntity.ok(cardService.getCardsByBoardId(boardId));
     }
@@ -40,7 +40,7 @@ public class CardController {
         return ResponseEntity.ok(cardService.getCardById(boardId,id));
     }
 
-    @DeleteMapping("/{id},{}")
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteCard(@PathVariable String boardId, @PathVariable String id) {
         cardService.deleteCard(boardId,id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -59,21 +59,25 @@ public class CardController {
         return ResponseEntity.ok(cardService.assignUserToCard(userId, cardId));
     }
 
-    @GetMapping("card-title/{cardTitle}")
+    @GetMapping("title/{cardTitle}")
     public ResponseEntity<List<Card>> getCardsByCardTitle(@PathVariable String cardTitle) {
         return ResponseEntity.ok(cardService.getCardsByCardTitle(cardTitle));
     }
 
-    @PostMapping("get-cards-by-userids")
+    @PostMapping("userids")
     public ResponseEntity<List<Card>> getCardsByUserIds(@RequestBody List<String> userIds) {
         return ResponseEntity.ok(cardService.getCardsByUserIds(userIds));
     }
 
-    @PostMapping("get-cards-by-modifyon")
+    @PostMapping("modifyon")
     public ResponseEntity<List<Card>> getCardsByModifyOn(@RequestBody Date modifyOn) {
         return ResponseEntity.ok(cardService.getCardsByModifyOn(modifyOn));
     }
 
+    @GetMapping("/sorted-by-modifyon")
+    public ResponseEntity<List<Card>> getCardsByBoardIdSortedByModifyOn(@PathVariable String boardId) {
+        return ResponseEntity.ok(cardService.getCardsByBoardIdSortedByModifyOn(boardId));
+    }
 
 
 }

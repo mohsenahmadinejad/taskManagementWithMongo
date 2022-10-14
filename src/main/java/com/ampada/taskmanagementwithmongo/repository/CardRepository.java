@@ -16,5 +16,6 @@ public interface CardRepository extends MongoRepository<Card,String> {
 
     public List<Card> findAllByUserIdListIn(List<String> userList);
     public List<Card> findAllByModifiedOnBetween(Date begin,Date end);
+    public List<Card> findAllByBoardIdOrderByModifiedOn(String boardId);
 
 }

@@ -32,7 +32,7 @@ public class UserController {
                     new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword())
             );
         } catch (Exception ex) {
-            throw new Exception("inavalid username/password");
+            throw new Exception("invalid username/password");
         }
         return jwtUtil.generateToken(authRequest.getUserName());
     }

@@ -1,7 +1,6 @@
 package com.ampada.taskmanagementwithmongo.security.filter;
 
 
-import com.ampada.taskmanagementwithmongo.security.entity.ActiveUser;
 import com.ampada.taskmanagementwithmongo.security.service.CustomUserDetailsService;
 import com.ampada.taskmanagementwithmongo.security.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +25,6 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private CustomUserDetailsService service;
 
-    @Autowired
-    private ActiveUser activeUser;
-
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
 
@@ -41,7 +37,6 @@ public class JwtFilter extends OncePerRequestFilter {
             token = authorizationHeader.substring(7);
             userName = jwtUtil.extractUsername(token);
         }
-        activeUser.setUserName(userName);
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = service.loadUserByUsername(userName);

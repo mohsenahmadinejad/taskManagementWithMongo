@@ -101,4 +101,10 @@ public class CardServiceImpl implements CardService {
         Date endOfDate= DateUtils.getEndOfDay(modifyOn);
         return cardRepository.findAllByModifiedOnBetween(startOfDate,endOfDate);
     }
+
+    @Override
+    public List<Card> getCardsByBoardIdSortedByModifyOn(String boardId) {
+        return cardRepository.findAllByBoardIdOrderByModifiedOn(boardId);
+    }
+
 }

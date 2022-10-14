@@ -1,23 +1,25 @@
 package com.ampada.taskmanagementwithmongo.config;
 
-import com.ampada.taskmanagementwithmongo.security.entity.ActiveUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
 public class AuditorAwareImpl implements AuditorAware<String> {
 
-    @Autowired
-    private ActiveUser activeUser;
-
     @Override
     public Optional<String> getCurrentAuditor() {
-
-
-        return Optional.of(activeUser.getUserName());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        return Optional.of( username);
     }
 }
 
