@@ -3,6 +3,7 @@ package com.ampada.taskmanagementwithmongo.security.config;
 import com.ampada.taskmanagementwithmongo.security.filter.JwtFilter;
 import com.ampada.taskmanagementwithmongo.security.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -44,15 +45,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    @Value("${security.activation.status}")
+    private String securityActivationStatus;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().
-                antMatchers("/signUp").permitAll().
-                antMatchers("/signIn").permitAll().
-             //   antMatchers("/**").permitAll().
-                anyRequest().authenticated()
-                .and().exceptionHandling().and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        if(securityActivationStatus.equalsIgnoreCase("off")) {
+            http.csrf().disable().authorizeRequests().
+                    antMatchers("/signUp").permitAll().
+                    antMatchers("/signIn").permitAll().
+                    antMatchers("/**").permitAll().
+                            anyRequest().authenticated()
+                    .and().exceptionHandling().and().sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        }else{
+            http.csrf().disable().authorizeRequests().
+                    antMatchers("/signUp").permitAll().
+                    antMatchers("/signIn").permitAll().
+//                    antMatchers("/**").permitAll().
+                    anyRequest().authenticated()
+                    .and().exceptionHandling().and().sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        }
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
